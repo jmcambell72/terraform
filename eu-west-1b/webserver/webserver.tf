@@ -8,14 +8,18 @@
 # define variables for access and secret key
 variable "access_key" {}
 variable "secret_key" {}
+variable "keyname" {}
+variable "secgrp1" {}
+variable "secgrp2" {}
 
 # define variables for security groups, define a security group name and then define the AWS security group ID
-variable "custom-security" {
-  default = "xx1"
-}
-variable "default-security" {
-  default = "xx2"
-}
+# variable "custom-security" {
+#  default = "xx1"
+#}
+#variable "default-security" {
+#  default = "xx2"
+#}
+
 # set-up provider, pulling in variables from define section
 provider "aws" {
   access_key = "${var.access_key}"
@@ -27,6 +31,6 @@ provider "aws" {
 resource "aws_instance" "webserver" {
   ami           = "ami-9e597ff8"
   instance_type = "t2.micro"
-  key_name = "keyname"
-  vpc_security_group_ids = ["xx1","xx2"]
+  key_name = "${var.keyname}"
+  vpc_security_group_ids = ["${var.secgrp1}","${var.secgrp2}"]
 }
